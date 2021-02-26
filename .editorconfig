@@ -1,0 +1,8 @@
+root = true            #所在目录是根目录，设置此项相当于封顶，查找到这层目录就没了       
+ 
+[*]                    #对于所有文件   #下面的这些设置就很好看懂了
+indent_style = tab     #缩进风格
+end_of_line = crlf     #换行风格  
+charset = utf-8        #文件编码格式
+tab_width = 4          #不用说也知道
+insert_final_newline = true   #文件结尾添加新行，省的警告

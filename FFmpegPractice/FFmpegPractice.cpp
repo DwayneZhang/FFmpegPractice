@@ -13,25 +13,25 @@ void my_logoutput(void* ptr, int level, const char* fmt, va_list vl) {
     printf("Hello Log Output! Content = %s", fmt);
 }
 
-// FFmpeg É¾³ıÎÄ¼ş²Ù×÷
+// FFmpeg åˆ é™¤æ–‡ä»¶æ“ä½œ
 void ffmpegDelFile() {
     int ret;
-    ret = avpriv_io_delete("1.txt");  // ÔÚÏîÄ¿Ä¿Â¼ÏÂ´´½¨µÄÎÄ¼ş£¨²âÊÔÊ±ĞèÒª´´½¨ºÃ£©
+    ret = avpriv_io_delete("1.txt");  // åœ¨é¡¹ç›®ç›®å½•ä¸‹åˆ›å»ºçš„æ–‡ä»¶ï¼ˆæµ‹è¯•æ—¶éœ€è¦åˆ›å»ºå¥½ï¼‰
     printf("Del File Code : %d \n", ret);
     if (ret < 0) {
         av_log(NULL, AV_LOG_ERROR, "Failed to delete file \n");
     }
     else {
-        av_log(NULL, AV_LOG_INFO, "Delete File Success£¡\n ");
+        av_log(NULL, AV_LOG_INFO, "Delete File Successï¼\n ");
     }
 }
 
-// FFmpeg ÖØÃüÃû»òÒÆ¶¯ÎÄ¼ş
+// FFmpeg é‡å‘½åæˆ–ç§»åŠ¨æ–‡ä»¶
 void ffmpegMoveFile(char* src, char* dst) {
     int ret;
     ret = avpriv_io_move(src, dst);
     printf("Move File Code : %d \n", ret);
-    // ÖØÃüÃûÊ±£¬Èç¹ûÎÄ¼ş²»´æÔÚ£¬retÒ²»á0
+    // é‡å‘½åæ—¶ï¼Œå¦‚æœæ–‡ä»¶ä¸å­˜åœ¨ï¼Œretä¹Ÿä¼š0
     if (ret < 0) {
         av_log(NULL, AV_LOG_ERROR, "Failed to Move File %s!\n ", src);
     }
@@ -40,21 +40,21 @@ void ffmpegMoveFile(char* src, char* dst) {
     }
 }
 
-// FFmpeg Ä¿Â¼²Ù×÷
+// FFmpeg ç›®å½•æ“ä½œ
 void ffmpegDir() {
 
     int ret;
 
-    // ÉÏÏÂÎÄ
+    // ä¸Šä¸‹æ–‡
     AVIODirContext* dirCtx = NULL;
     AVIODirEntry* dirEntry = NULL;
 
-    // ×¢ÒâWindowsÏÂ»á·µ»Ø-40£¬Ò²¾ÍÊÇFunction not implement£¬·½·¨Î´ÊµÏÖ£¬Ò²¾ÍÊÇËµwindowsÏÂ²»Ö§³Ö´Ë·½·¨
+    // æ³¨æ„Windowsä¸‹ä¼šè¿”å›-40ï¼Œä¹Ÿå°±æ˜¯Function not implementï¼Œæ–¹æ³•æœªå®ç°ï¼Œä¹Ÿå°±æ˜¯è¯´windowsä¸‹ä¸æ”¯æŒæ­¤æ–¹æ³•
     ret = avio_open_dir(&dirCtx, "include", NULL);
 
     if (ret < 0) {
-        // Êä³ö´íÎóÈÕÖ¾
-        printf("cant open dir£¬msg = %s", av_err2str(ret));
+        // è¾“å‡ºé”™è¯¯æ—¥å¿—
+        printf("cant open dirï¼Œmsg = %s", av_err2str(ret));
         return;
     }
 
@@ -64,7 +64,7 @@ void ffmpegDir() {
         ret = avio_read_dir(dirCtx, &dirEntry);
         if (ret < 0) {
             printf("cant read dir : %s", av_err2str(ret));
-            // ·ÀÖ¹ÄÚ´æĞ¹Â©
+            // é˜²æ­¢å†…å­˜æ³„æ¼
             goto __failed;
         }
         av_log(NULL, AV_LOG_INFO, "read dir success");
@@ -72,10 +72,10 @@ void ffmpegDir() {
             break;
         }
         printf("Entry Name = %s", dirEntry->name);
-        // ÊÍ·Å×ÊÔ´
+        // é‡Šæ”¾èµ„æº
         avio_free_directory_entry(&dirEntry);
     }
-    // ÊÍ·Å×ÊÔ´
+    // é‡Šæ”¾èµ„æº
 __failed:
     avio_close_dir(&dirCtx);
 }
@@ -90,20 +90,20 @@ int main(int argc, char* argv[]) {
     /** 1.FFmpeg Log System **/
     //av_log_set_level(AV_LOG_INFO);
 
-    /** 2.ÉèÖÃ×Ô¶¨ÒåµÄÈÕÖ¾Êä³ö·½·¨ **/
+    /** 2.è®¾ç½®è‡ªå®šä¹‰çš„æ—¥å¿—è¾“å‡ºæ–¹æ³• **/
     av_log_set_callback(my_logoutput);
     av_log(NULL, AV_LOG_INFO, "Hello World\n");
 
-    /** 3.Ê¹ÓÃFFmpegÉ¾³ıÎÄ¼ş **/
-    //ffmpegDelFile();  // É¾³ıÎÄ¼ş
+    /** 3.ä½¿ç”¨FFmpegåˆ é™¤æ–‡ä»¶ **/
+    //ffmpegDelFile();  // åˆ é™¤æ–‡ä»¶
 
-    /** 4.Ê¹ÓÃFFmpegÖØÃüÃûÎÄ¼ş **/
+    /** 4.ä½¿ç”¨FFmpegé‡å‘½åæ–‡ä»¶ **/
     //char src[] = "111.txt";
     //char dst[] = "222.txt";
-    //ffmpegMoveFile(src, dst);  //  ÖØÃüÃûÎÄ¼ş
+    //ffmpegMoveFile(src, dst);  //  é‡å‘½åæ–‡ä»¶
 
-    /** 5.Ê¹ÓÃFFmpeg²Ù×÷ÎÄ¼şÄ¿Â¼£¨×¢:´Ë²Ù×÷¿ÉÄÜÔÚWindowsÏÂÃæ²»Ö§³Ö£© **/
-    //ffmpegDir();  // ÎÄ¼şÄ¿Â¼²Ù×÷
+    /** 5.ä½¿ç”¨FFmpegæ“ä½œæ–‡ä»¶ç›®å½•ï¼ˆæ³¨:æ­¤æ“ä½œå¯èƒ½åœ¨Windowsä¸‹é¢ä¸æ”¯æŒï¼‰ **/
+    //ffmpegDir();  // æ–‡ä»¶ç›®å½•æ“ä½œ
 
 
     return 0;
