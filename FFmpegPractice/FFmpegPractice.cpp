@@ -91,7 +91,7 @@ int main(int argc, char* argv[]) {
     //av_log_set_level(AV_LOG_INFO);
 
     /** 2.设置自定义的日志输出方法 **/
-    av_log_set_callback(my_logoutput);  
+    av_log_set_callback(my_logoutput);
     av_log(NULL, AV_LOG_INFO, "Hello World\n");
 
     /** 3.使用FFmpeg删除文件 **/
@@ -105,6 +105,6 @@ int main(int argc, char* argv[]) {
     /** 5.使用FFmpeg操作文件目录（注:此操作可能在Windows下面不支持） **/
     //ffmpegDir();  // 文件目录操作
 
-    
+
     return 0;
 }
